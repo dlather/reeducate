@@ -1,15 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="none">
-  <path fill="url(#a)" d="M14.223 24.584c-.639.805-1.934.364-1.95-.663L12.05 8.9h10.1c1.829 0 2.85 2.112 1.712 3.545l-9.638 12.138Z"/>
-  <path fill="url(#b)" fill-opacity=".2" d="M14.223 24.584c-.639.805-1.934.364-1.95-.663L12.05 8.9h10.1c1.829 0 2.85 2.112 1.712 3.545l-9.638 12.138Z"/>
-  <path fill="#3ECF8E" d="M10.116.415c.639-.804 1.934-.363 1.949.664l.099 15.02H2.19c-1.83 0-2.85-2.113-1.712-3.545L10.116.415Z"/>
-  <defs>
-    <linearGradient id="a" x1="12.049" x2="21.025" y1="12.231" y2="15.995" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#249361"/>
-      <stop offset="1" stop-color="#3ECF8E"/>
-    </linearGradient>
-    <linearGradient id="b" x1="8.069" x2="12.163" y1="6.782" y2="14.488" gradientUnits="userSpaceOnUse">
-      <stop/>
-      <stop offset="1" stop-opacity="0"/>
-    </linearGradient>
-  </defs>
+<?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg width="800px" height="800px" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16 2L3 7L5 24L16 30L27 24L29 7L16 2Z" fill="#DD0031"/>
+<path d="M16 2V30L27 24L29 7L16 2Z" fill="#C3002F"/>
+<path d="M15.9998 5.09375L7.87305 23.3638H10.9031L12.5368 19.2757H19.4348L21.0685 23.3638H24.0986L15.9998 5.09375ZM18.3736 16.7557H13.626L15.9998 11.0298L18.3736 16.7557Z" fill="white"/>
 </svg>

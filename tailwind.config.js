@@ -11,6 +11,9 @@ module.exports = {
         inter: ["Inter", "sans-serif"],
         mono: ["Roboto Mono", "monospace"],
       },
+      animation: {
+        "infinite-scroll": "infinite-scroll 25s linear infinite",
+      },
       fontSize: {
         xs: ["0.75rem", { lineHeight: "1.5" }],
         sm: ["0.875rem", { lineHeight: "1.5715" }],

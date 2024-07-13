@@ -4,7 +4,7 @@ import Stripes from "@/public/images/stripes-dark.svg";
 export default function Cta() {
   return (
     <section>
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 mb-20">
         <div
           className="relative overflow-hidden rounded-2xl text-center shadow-xl before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-2xl before:bg-gray-900"
           data-aos="zoom-y-out"
@@ -31,9 +31,9 @@ export default function Cta() {
           </div>
           <div className="px-4 py-12 md:px-12 md:py-20">
             <h2 className="mb-6 border-y text-3xl font-bold text-gray-200 [border-image:linear-gradient(to_right,transparent,theme(colors.slate.700/.7),transparent)1] md:mb-12 md:text-4xl">
-              Create your next project with Simple
+              Trusted by
             </h2>
-            <div className="mx-auto max-w-xs sm:flex sm:max-w-none sm:justify-center">
+            {/* <div className="mx-auto max-w-xs sm:flex sm:max-w-none sm:justify-center">
               <a
                 className="btn group mb-4 w-full bg-gradient-to-t from-blue-600 to-blue-500 bg-[length:100%_100%] bg-[bottom] text-white shadow hover:bg-[length:100%_150%] sm:mb-0 sm:w-auto"
                 href="#0"
@@ -45,10 +45,126 @@ export default function Cta() {
                   </span>
                 </span>
               </a>
-            </div>
+            </div> */}
+            <LogoCarousel />
           </div>
         </div>
       </div>
     </section>
   );
 }
+
+const LogoCarousel = () => {
+  return (
+    <div className="relative font-inter antialiased">
+      <main className="relative flex-col justify-center overflow-hidden">
+        <div className="w-full max-w-5xl mx-auto px-4 md:px-6">
+          <div className="text-center">
+            <div className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
+              <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
+                <li>
+                  <img
+                    src="https://cruip-tutorials.vercel.app/logo-carousel/facebook.svg"
+                    alt="Facebook"
+                  />
+                </li>
+                <li>
+                  <img
+                    src="https://cruip-tutorials.vercel.app/logo-carousel/disney.svg"
+                    alt="Disney"
+                  />
+                </li>
+                <li>
+                  <img
+                    src="https://cruip-tutorials.vercel.app/logo-carousel/airbnb.svg"
+                    alt="Airbnb"
+                  />
+                </li>
+                <li>
+                  <img
+                    src="https://cruip-tutorials.vercel.app/logo-carousel/apple.svg"
+                    alt="Apple"
+                  />
+                </li>
+                <li>
+                  <img
+                    src="https://cruip-tutorials.vercel.app/logo-carousel/spark.svg"
+                    alt="Spark"
+                  />
+                </li>
+                <li>
+                  <img
+                    src="https://cruip-tutorials.vercel.app/logo-carousel/samsung.svg"
+                    alt="Samsung"
+                  />
+                </li>
+                <li>
+                  <img
+                    src="https://cruip-tutorials.vercel.app/logo-carousel/quora.svg"
+                    alt="Quora"
+                  />
+                </li>
+                <li>
+                  <img
+                    src="https://cruip-tutorials.vercel.app/logo-carousel/sass.svg"
+                    alt="Sass"
+                  />
+                </li>
+              </ul>
+              <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
+                <li>
+                  <img
+                    src="https://cruip-tutorials.vercel.app/logo-carousel/facebook.svg"
+                    alt="Facebook"
+                  />
+                </li>
+                <li>
+                  <img
+                    src="https://cruip-tutorials.vercel.app/logo-carousel/disney.svg"
+                    alt="Disney"
+                  />
+                </li>
+                <li>
+                  <img
+                    src="https://cruip-tutorials.vercel.app/logo-carousel/airbnb.svg"
+                    alt="Airbnb"
+                  />
+                </li>
+                <li>
+                  <img
+                    src="https://cruip-tutorials.vercel.app/logo-carousel/apple.svg"
+                    alt="Apple"
+                  />
+                </li>
+                <li>
+                  <img
+                    src="https://cruip-tutorials.vercel.app/logo-carousel/spark.svg"
+                    alt="Spark"
+                  />
+                </li>
+                <li>
+                  <img
+                    src="https://cruip-tutorials.vercel.app/logo-carousel/samsung.svg"
+                    alt="Samsung"
+                  />
+                </li>
+                <li>
+                  <img
+                    src="https://cruip-tutorials.vercel.app/logo-carousel/quora.svg"
+                    alt="Quora"
+                  />
+                </li>
+                <li>
+                  <img
+                    src="https://cruip-tutorials.vercel.app/logo-carousel/sass.svg"
+                    alt="Sass"
+                  />
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+};

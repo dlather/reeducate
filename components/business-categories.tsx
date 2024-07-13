@@ -180,7 +180,7 @@ export default function BusinessCategories() {
                   <Image
                     className="relative"
                     src={Logo01}
-                    width={32}
+                    width={50}
                     height={32}
                     alt="Logo 01"
                   />
@@ -196,8 +196,8 @@ export default function BusinessCategories() {
                       <Image
                         className="relative"
                         src={Logo02}
-                        width={23}
-                        height={22}
+                        width={30}
+                        height={30}
                         alt="Logo 02"
                       />
                     </div>
@@ -209,8 +209,8 @@ export default function BusinessCategories() {
                       <Image
                         className="relative"
                         src={Logo03}
-                        width={22}
-                        height={22}
+                        width={40}
+                        height={40}
                         alt="Logo 03"
                       />
                     </div>
@@ -222,8 +222,8 @@ export default function BusinessCategories() {
                       <Image
                         className="relative"
                         src={Logo04}
-                        width={24}
-                        height={22}
+                        width={40}
+                        height={40}
                         alt="Logo 04"
                       />
                     </div>
@@ -235,8 +235,8 @@ export default function BusinessCategories() {
                       <Image
                         className="relative"
                         src={Logo05}
-                        width={25}
-                        height={25}
+                        width={40}
+                        height={40}
                         alt="Logo 05"
                       />
                     </div>
@@ -248,8 +248,8 @@ export default function BusinessCategories() {
                       <Image
                         className="relative"
                         src={Logo06}
-                        width={20}
-                        height={18}
+                        width={40}
+                        height={40}
                         alt="Logo 06"
                       />
                     </div>
@@ -261,8 +261,8 @@ export default function BusinessCategories() {
                       <Image
                         className="relative"
                         src={Logo07}
-                        width={25}
-                        height={25}
+                        width={40}
+                        height={40}
                         alt="Logo 07"
                       />
                     </div>
@@ -274,8 +274,8 @@ export default function BusinessCategories() {
                       <Image
                         className="relative"
                         src={Logo08}
-                        width={20}
-                        height={20}
+                        width={40}
+                        height={40}
                         alt="Logo 08"
                       />
                     </div>
@@ -287,8 +287,8 @@ export default function BusinessCategories() {
                       <Image
                         className="relative"
                         src={Logo09}
-                        width={21}
-                        height={13}
+                        width={40}
+                        height={40}
                         alt="Logo 09"
                       />
                     </div>
