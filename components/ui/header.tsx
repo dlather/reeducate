@@ -26,27 +26,28 @@ export default function Header() {
           {/* Site branding */}
           <div className="flex flex-1 items-center">
             <Logo />
+            <p className="text-gray-800 mx-4 font-semibold">Reeducate</p>
           </div>
 
           {/* Desktop sign in links */}
-          {/* <ul className="flex flex-1 items-center justify-end gap-3">
-            <li>
+          <ul className="flex flex-1 items-center justify-end gap-3">
+            {/* <li>
               <Link
-                href="/signin"
+                href="/docs"
                 className="btn-sm bg-white text-gray-800 shadow hover:bg-gray-50"
               >
-                Login
+                Start Now
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link
-                href="/signup"
+                href="/docs/getting-started/introduction"
                 className="btn-sm bg-gray-800 text-gray-200 shadow hover:bg-gray-900"
               >
-                Register
+                Docs
               </Link>
             </li>
-          </ul> */}
+          </ul>
         </div>
       </div>
     </header>
