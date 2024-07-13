@@ -1,5 +1,12 @@
 "use client";
+import { Inter } from "next/font/google";
 import { useEffect } from "react";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
 
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -22,12 +29,16 @@ export default function DefaultLayout({
   });
 
   return (
-    <>
-      <Header />
-
-      <main className="grow">{children}</main>
-
-      <Footer border={true} />
-    </>
+    <body
+      className={`${inter.variable} bg-gray-50 font-inter tracking-tight text-gray-900 antialiased`}
+    >
+      <div className="flex min-h-screen flex-col overflow-hidden supports-[overflow:clip]:overflow-clip">
+        <>
+          <Header />
+          <main className="grow">{children}</main>
+          <Footer border={true} />
+        </>
+      </div>
+    </body>
   );
 }

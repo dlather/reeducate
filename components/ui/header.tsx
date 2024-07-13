@@ -40,10 +40,7 @@ export default function Header() {
               </Link>
             </li> */}
             <li>
-              <Link
-                href="/docs/getting-started/introduction"
-                className="btn-sm bg-gray-800 text-gray-200 shadow hover:bg-gray-900"
-              >
+              <Link href="/docs/getting-started/introduction" className="">
                 Docs
               </Link>
             </li>

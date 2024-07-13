@@ -8,10 +8,10 @@ import {
   SheetHeader,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Logo, NavMenu } from "./navbar";
+import { NavMenu } from "./navbar";
 import { Button } from "./ui/button";
 import { AlignLeftIcon } from "lucide-react";
-import { FooterButtons } from "./footer";
+import Logo from "./ui/logo";
 
 export function Leftbar() {
   return (
@@ -44,9 +44,6 @@ export function SheetLeftbar() {
           <div className="mx-2 px-5">
             <Menu isSheet />
           </div>
-          <div className="p-6 pb-4 flex gap-2">
-            <FooterButtons />
-          </div>
         </ScrollArea>
       </SheetContent>
     </Sheet>
@@ -60,7 +57,7 @@ function Menu({ isSheet = false }) {
         return (
           <div className="flex flex-col gap-3 mt-5" key={href}>
             <h4 className="font-medium sm:text-sm">{title}</h4>
-            <div className="flex flex-col gap-3 sm:text-sm dark:text-neutral-300/85 text-neutral-800 ml-0.5">
+            <div className="flex flex-col gap-3 sm:text-sm dark:text-neutral-300 text-neutral-800 ml-0.5">
               {items.map((subItem) => {
                 const key = `/docs/${href}${subItem.href}`;
                 const Comp = (
