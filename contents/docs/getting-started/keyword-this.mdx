@@ -1,0 +1,75 @@
+---
+title: "Keyword: this"
+description: 
+---
+
+**`this`** value is determined at the time a function is invoked by inspecting where its called.
+It follows these rules, in order of precedence.
+
+### Rule 1: New
+If the `new` keyword is used when calling the function, `this` inside the function is a **brand new object**.
+
+<JsEditor editorId="this-keyword" initCode={`function fun1() {
+    console.log(JSON.stringify(this)); // {}
+    this.value = 10;
+    console.log(JSON.stringify(this)); // { value: 10 }
+}
+new fun1();`}/>
+
+### Rule 2: Bind
+If `apply`, `call`, or `bind` are used to call a function, `this` inside the function is the **object that is passed in as the argument**.
+
+
+<JsEditor editorId="bind-function" initCode={`function fun2() {
+    console.log(this);
+}
+var obj2 = {
+    value: 5
+};
+var boundFn = fun2.bind(obj2);
+boundFn();     // -> { value: 5 }
+fun2.call(obj2);  // -> { value: 5 }
+fun2.apply(obj2); // -> { value: 5 }
+`}/>
+
+### Rule 3: Dot notation 
+If `dot notation` is used to invoke the function, `this` is the **object to the left of the dot**.
+
+<JsEditor editorId="dot-notation" initCode={`var obj3 = {
+    value: 5,
+    printThis: function() {
+        console.log(this);
+    }
+};
+obj3.printThis(); // -> { value: 5, printThis: ƒ }`}/>
+
+### Rule 4: Global
+If invoked `without` any of the conditions present above, `this` is the **global object**. In a browser, its **window**.
+
+<JsEditor editorId="global-invocation" initCode={`function fun4() {
+    console.log(this);
+}
+// If called in browser:
+fun4(); // -> Window {stop: ƒ, open: ƒ, alert: ƒ, ...}`}/>
+
+
+### Rule 5: Multiple
+If `multiple` of the above rules apply, the rule that is **higher** wins and will set the `this` value.
+
+### Rule 6: Arrow Func
+If the function is an ES2015 `arrow function`, it ignores all the rules above and receives the `this` value of its **surrounding scope at the time its created**.
+
+<JsEditor editorId="global-invocation" initCode={`const obj6 = {
+    value: 'abc',
+    createArrowFn: function() {
+        // Check "this" value, just above where arrow func is created.
+        return () => console.log(this);
+    }
+};
+const arrowFn = obj6.createArrowFn();
+arrowFn(); // -> { value: 'abc', createArrowFn: ƒ }
+`}/>
+
+
+
+

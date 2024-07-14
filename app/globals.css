@@ -165,3 +165,21 @@ pre>code {
 .highlight-comp>code {
   background-color: transparent !important;
 }
+
+.react-resizable {
+  position: relative;
+}
+.react-resizable-handle {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  bottom: 0;
+  right: 0;
+  background: url('data:image/svg+xml,<svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 15L15 21M21 8L8 21" stroke="%23fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>');
+  background-position: bottom right;
+  padding: 0 3px 3px 0;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  box-sizing: border-box;
+  cursor: se-resize;
+}
