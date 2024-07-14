@@ -1,15 +1,12 @@
 // for page navigation & to sort on leftbar
 export const ROUTES = [
   {
-    title: "Getting Started",
-    href: "getting-started",
+    title: "Top concepts",
+    href: "top-concepts",
     items: [
-      { title: "Keyword: this", href: "/keyword-this" },
-      { title: "Installation", href: "/installation" },
-      { title: "Quick Start Guide", href: "/quick-start-guide" },
-      { title: "Project Structure", href: "/project-structure" },
-      { title: "Changelog", href: "/changelog" },
-      { title: "FAQ", href: "/faq" },
+      { title: "this", href: "/keyword-this" },
+      { title: "call, apply & bind", href: "/call-apply-bind" },
+      { title: "new", href: "/keyword-new" },
     ],
   },
 ];

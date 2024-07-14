@@ -9,13 +9,15 @@ import { ResizableBox } from "react-resizable";
 const JsEditor = ({
   initCode = "",
   editorId,
+  defaultHeight = 150,
 }: {
   editorId: string;
   initCode: string;
+  defaultHeight: number;
 }) => {
   const [codeState, setcodeState] = useState(initCode);
   const editorRef = useRef<null | { getValue: () => string }>(null);
-  const [editorHeight, seteditorHeight] = useState(150);
+  const [editorHeight, seteditorHeight] = useState(defaultHeight);
   const monacoRef = useRef(null);
   const [logs, setLogs] = useState<any[]>([]);
 
@@ -91,16 +93,16 @@ const JsEditor = ({
     <div className="flex-col justify-center items-center ">
       <ResizableBox
         axis="y"
-        height={editorHeight ?? 150}
+        height={editorHeight ?? defaultHeight}
         className="box"
         onResize={(
           _: any,
           d: { size: { height: React.SetStateAction<number> } }
-        ) => seteditorHeight(d.size.height ?? 150)}
+        ) => seteditorHeight(d.size.height ?? defaultHeight)}
       >
         <Editor
           className="rounded py-4 bg-[#1e1e1e]"
-          height={editorHeight ?? 150}
+          height={editorHeight ?? defaultHeight}
           defaultLanguage="typescript"
           theme="vs-dark"
           onChange={(v) => {

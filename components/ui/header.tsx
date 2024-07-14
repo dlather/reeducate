@@ -40,8 +40,8 @@ export default function Header() {
               </Link>
             </li> */}
             <li>
-              <Link href="/docs/getting-started/introduction" className="">
-                Docs
+              <Link href="/docs/top-concepts/keyword-this" className="mx-2">
+                Start here
               </Link>
             </li>
           </ul>

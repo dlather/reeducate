@@ -56,8 +56,8 @@ function Menu({ isSheet = false }) {
       {ROUTES.map(({ href, items, title }) => {
         return (
           <div className="flex flex-col gap-3 mt-5" key={href}>
-            <h4 className="font-medium sm:text-sm">{title}</h4>
-            <div className="flex flex-col gap-3 sm:text-sm dark:text-neutral-300 text-neutral-800 ml-0.5">
+            <h4 className="font-semibold text-lg sm:text-sm">{title}</h4>
+            <div className="flex flex-col gap-3 sm:text-sm dark:text-neutral-300 text-neutral-800 ml-2">
               {items.map((subItem) => {
                 const key = `/docs/${href}${subItem.href}`;
                 const Comp = (
@@ -66,7 +66,7 @@ function Menu({ isSheet = false }) {
                     key={key}
                     href={key}
                   >
-                    {subItem.title}
+                    - {subItem.title}
                   </Anchor>
                 );
                 return isSheet ? (

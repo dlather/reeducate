@@ -1,0 +1,63 @@
+---
+title: "new"
+description: 
+---
+
+Lets write a function that will create “person” objects. It will give these objects "name" and "age" properties based on parameters that it takes in.
+
+### Normal function
+
+``` jsx
+function personFn(name, age) {
+    var personObj = {};
+    personObj.name = name;
+    personObj.age = age;
+    
+    return personObj;
+}
+var alex = personFn('Alex', 30); // -> { name: 'Alex', age: 30 }
+```
+
+### Using new
+
+The `new` keyword invokes a function in a special way by adding some implicit code.
+
+<JsEditor editorId="new-example" defaultHeight={380} initCode={`function Person(name, age) {
+    // this = {};
+    // this.__proto__ = Person.prototype;
+    // Set up logic such that: if
+    // there is a return statement
+    // in the function body that
+    // returns anything EXCEPT an
+    // object, array, or function:
+    //     return 'this' (the newly
+    //     constructed object)
+    //     instead of that item at
+    //     the return statement;
+    this.name = name;
+    this.age = age;
+    // return this;
+}
+const newPerson = new Person("John", 20)
+console.log(newPerson)
+`}/>
+
+**Step by step:**
+
+1. Creates a new object and binds it to the this keyword.
+2. Sets the object’s internal [[Prototype]] property, __proto__, to be the prototype of the constructing function. This also makes it so the constructor of the new object is prototypically inherited.
+3. Sets up logic such that if a variable of any type other than object, array, or function is returned in the function body, return this, the newly constructed object, instead of what the function says to return.
+4. At the end of the function, returns this if there is no return statement in the function body.
+
+Try it out:
+
+<JsEditor editorId="new-try-example" defaultHeight={250} initCode={`function DemoFunc() {
+    console.log(JSON.stringify(this)); // this => {}
+    this.value = 5;
+}
+
+var demoObj = new DemoFunc(); // -> {}
+console.log(demoObj.__proto__ === DemoFunc.prototype); // -> true
+console.log(demoObj.constructor === DemoFunc); // -> true
+console.log(demoObj); // -> { value: 5 }
+`}/>
