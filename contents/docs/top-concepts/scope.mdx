@@ -1,0 +1,60 @@
+---
+title: "scope"
+description: 
+---
+
+`scope` determines the visibility of variables and other resources in some particular part of your code.
+
+## Types of scope
+
+1. Global scope
+2. Local scope
+
+### Global scope
+
+- Only **1** global scope 
+- A variable is in the Global scope if it’s defined **outside of a function**.
+- Variables inside the Global scope can be `accessed` and `altered` in **any** place.
+
+```jsx
+// the scope is by default global
+var name = 'Hammad';
+console.log(name); // logs 'Hammad'
+
+function logName() {
+    console.log(name); // 'name' is accessible here and everywhere else
+}
+logName(); // logs 'Hammad'
+```
+
+### Local Scope
+- Variables defined **inside a function** are in the local scope.
+- Variables are not accessible in other functions.
+
+```jsx
+// Global Scope
+function someFunction() {
+    // Local Scope #1
+    function someOtherFunction() {
+        // Local Scope #2
+    }
+}
+
+// Global Scope
+function anotherFunction() {
+    // Local Scope #3
+}
+// Global Scope
+```
+
+## Block statements
+
+Like `if` and `switch` conditions or `for` and `while` loops, unlike functions, **don’t create a new scope**. 
+Variables defined inside of a block statement will **remain** in the scope they were already in. 
+```jsx 
+if (true) {
+    // this 'if' conditional block doesn't create a new scope
+    var name = 'Hammad'; // name is still in the global scope
+}
+console.log(name); // logs 'Hammad' 
+```

@@ -1,0 +1,102 @@
+---
+title: "cookies, localStorage & sessionStorage"
+description: 
+---
+
+All are mechanisms of storing data on the client, the user's browser in this case. 
+`localStorage` and `sessionStorage` both implement the Web Storage API interface.
+
+## Introduction
+
+1. **Cookies:** Suitable for server-client communication, small storage capacity, can be persistent or session-based, domain-specific. Sent to the server on every request.
+
+2. **localStorage:** Suitable for long-term storage, data persists even after the browser is closed, accessible across all tabs and windows of the same origin, highest storage capacity among the three.
+
+3. **sessionStorage:** Suitable for temporary data within a single page session, data is cleared when the tab or window is closed, has a higher storage capacity compared to cookies.
+
+
+| Property                               | `Cookie`                               | `localStorage`                         | `sessionStorage`                      |
+|---------------------------------------|---------------------------------------|---------------------------------------|---------------------------------------|
+| Initiator                             | Client or server. Server can use Set-Cookie header | Client                                | Client                                |
+| Lifespan                              | As specified                          | Until deleted                         | Until tab is closed                   |
+| Persistent across browser sessions    | If a future expiry date is set        | Yes                                   | No                                    |
+| Sent to server with every HTTP request| Yes, sent via Cookie header           | No                                    | No                                    |
+| Total capacity (per domain)           | 4kb                                   | 5MB                                   | 5MB                                   |
+| Access                                | Across windows/tabs                   | Across windows/tabs                   | Same tab                              |
+| Security                              | JavaScript cannot access HttpOnly cookies | None                                  | None                                  |
+
+## Storage on the Web
+
+It is useful to store data on the client for client-only state like **access tokens**, **themes**, **personalized layouts**, so that users can have a consistent experience on a website across tabs and usage sessions.
+
+These client-side storage mechanisms have the following common properties:
+
+- Clients can read and modify the values (except for HttpOnly cookies).
+- Key-value based storage.
+- They are only able to store values as strings. Non-strings will have to be serialized into a string (e.g. `JSON.stringify()`) in order to be stored.
+
+### Cookies
+
+Cookies are used to store **small pieces of data** on the client side that can be **sent back to the server with every HTTP request**.
+
+- **Storage capacity**: Limited to around **4KB** for all cookies.
+- **Lifespan**: Cookies can have a specific expiration date set using the Expires or Max-Age attributes. If no expiration date is set, the cookie is deleted when the browser is closed (session cookie).
+- **Access**: Cookies are **domain-specific** and can be shared across different pages and subdomains within the same domain.
+- **Security**: Cookies can be marked as **HttpOnly** to prevent access from JavaScript, reducing the risk of XSS attacks. They can also be secured with the **Secure** flag to ensure they are sent only when HTTPS is used.
+- **Data**: Such as **auth tokens**, **session IDs**, **analytics tracking IDs**, **GDPR cookie consent**, **language preferences** that are important for authentication, authorization, and rendering on the server.
+
+```jsx
+// Set a cookie for the name/key `auth_token` with an expiry.
+document.cookie =
+  'auth_token=abc123def; expires=Fri, 31 Dec 2024 23:59:59 GMT; path=/';
+// Read all cookies. There's no way to read specific cookies using `document.cookie`.
+// You have to parse the string yourself.
+console.log(document.cookie); // auth_token=abc123def
+```
+
+### localStorage
+
+`localStorage` is used for storing data that **persists even after the browser is closed** and reopened. It is designed for long-term storage of data.
+
+- **Storage capacity**: Typically around **5MB** per origin (varies by browser).
+- **Lifespan**: Data in localStorage **persists until explicitly deleted** by the user or the application.
+- **Access**: Data is accessible within **all tabs and windows of the same origin**.
+- **Security**: All JavaScript on the page have access to values within localStorage.
+- **Data**: Most suitable for user preferences data that do not expire, like **themes** and **layouts**.
+
+```jsx
+// Set a value in localStorage.
+localStorage.setItem('key', 'value');
+// Get a value from localStorage.
+console.log(localStorage.getItem('key'));
+// Remove a value from localStorage.
+localStorage.removeItem('key');
+// Clear all data in localStorage.
+localStorage.clear();
+```
+
+### sessionStorage
+
+`sessionStorage` is used to store data for the **duration of the page session**. It is designed for temporary storage of data.
+
+- **Storage Capacity**: Typically around 5MB per origin (varies by browser).
+- **Lifespan**: Data in sessionStorage is cleared when the page session ends (i.e., when the browser or tab is closed). Reloading the page does not destroy data within sessionStorage.
+- **Access**: Data is only accessible within the current tab or window. Different tabs or windows with the same page will have different sessionStorage objects.
+- **Security**: All JavaScript on the same page have access to values within sessionStorage for that page.
+- **Data**: Most suitable for temporary data that only needs to be accessible within the current browsing session, such as **form data** (useful to preserve data during accidental reloads).
+
+```jsx
+// Set a value in sessionStorage.
+sessionStorage.setItem('key', 'value');
+// Get a value from sessionStorage.
+console.log(sessionStorage.getItem('key'));
+// Remove a value from sessionStorage.
+sessionStorage.removeItem('key');
+// Clear all data in sessionStorage.
+sessionStorage.clear();
+```
+
+
+***Note***: There are also other client-side storage mechanisms like `IndexedDB` which is more powerful than the above-mentioned technologies but more complicated to use.
+
+

@@ -1,0 +1,89 @@
+---
+title: "var, let & const"
+description: 
+---
+
+In JavaScript, `let`, `var`, and `const` are all keywords used to declare variables, but they **differ significantly** in terms of scope, initialization rules, whether they can be redeclared or reassigned and the behavior when they are accessed before declaration:
+
+
+| Behavior                         | `var`          | `let`              | `const`             |
+| -------------------------------- | -------------- | ------------------ | ------------------- |
+| Scope                            | Function or Global | Block           | Block               |
+| Initialization                   | Optional       | Optional           | Required            |
+| Redeclaration                    | Yes            | No                 | No                  |
+| Reassignment                     | Yes            | Yes                | No                  |
+| Accessing before declaration     | `undefined`    | `ReferenceError`   | `ReferenceError`    |
+
+> Note: Block statements Like `if` and `switch` conditions or `for` and `while` loops, unlike functions, don’t create a new scope. 
+Variables defined inside of a block statement will **remain** in the scope they were already in. 
+
+### Scope
+- `var`: scoped to the function in which they are created, or if created outside of any function, to the global object.
+- `let` or `const`: block scoped, meaning they are only accessible within the nearest set of curly braces (function, if-else block, or for-loop).
+
+<JsEditor initCode={`if (true) {
+  var bar = 1;
+  let baz = 2;
+  const qux = 3;
+}
+
+// var variables are accessible anywhere in the function scope.
+console.log(bar); // 1
+// let and const variables are not accessible outside of the block they were defined in.
+console.log(baz); // ReferenceError: baz is not defined
+console.log(qux); // ReferenceError: qux is not defined
+`}/>
+
+### Initialization
+- `var` or `let`: can be initialized without a value
+- `const`: declarations must be initialized.
+
+```jsx
+var foo; // Ok
+let bar; // Ok
+const baz; // SyntaxError: Missing initializer in const declaration
+```
+
+### Redeclaration
+- `var`: will **not** throw an error
+- `let` or `const`: will throw error
+
+```jsx
+var foo = 1;
+var foo = 2;
+console.log(foo); // 2
+
+let baz = 3;
+let baz = 4; // Uncaught SyntaxError: Identifier 'baz' has already been declared
+```
+
+### Reassignment
+- `var` or `let`: Allows reassignment
+- `const`: throws error
+
+```jsx
+let bar = 3;
+bar = 4; // This is fine.
+
+const baz = 5;
+baz = 6; // Uncaught TypeError: Assignment to constant variable.
+```
+
+### Accessing before declaration
+- Only declartaion for all `var`, `let` and `const` is hoisted.
+- `var` declared variables are auto-initialized with an `undefined` value.
+- Accessing `let` or `const` before the declaration will result in a ReferenceError exception.
+
+```jsx
+console.log(foo); // undefined
+var foo = 'foo';
+
+console.log(baz); // ReferenceError: can't access lexical declaration 'baz' before initialization
+let baz = 'baz';
+
+console.log(bar); // ReferenceError: can't access lexical declaration 'bar' before initialization
+const bar = 'bar';
+```
+
+
+

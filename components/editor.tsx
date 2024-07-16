@@ -5,19 +5,15 @@ import { Console, Hook, Unhook } from "console-feed";
 import Editor from "@monaco-editor/react";
 import { Button } from "./ui/button";
 import { ResizableBox } from "react-resizable";
+import { guidGenerator } from "@/lib/utils";
 
-const JsEditor = ({
-  initCode = "",
-  editorId,
-  defaultHeight = 150,
-}: {
-  editorId: string;
-  initCode: string;
-  defaultHeight: number;
-}) => {
+const JsEditor = ({ initCode = "" }: { initCode: string }) => {
+  const editorId = guidGenerator();
   const [codeState, setcodeState] = useState(initCode);
   const editorRef = useRef<null | { getValue: () => string }>(null);
-  const [editorHeight, seteditorHeight] = useState(defaultHeight);
+  const [editorHeight, seteditorHeight] = useState(
+    (initCode.split("\n").length + 1) * 20
+  );
   const monacoRef = useRef(null);
   const [logs, setLogs] = useState<any[]>([]);
 
@@ -93,16 +89,16 @@ const JsEditor = ({
     <div className="flex-col justify-center items-center ">
       <ResizableBox
         axis="y"
-        height={editorHeight ?? defaultHeight}
+        height={editorHeight}
         className="box"
         onResize={(
           _: any,
           d: { size: { height: React.SetStateAction<number> } }
-        ) => seteditorHeight(d.size.height ?? defaultHeight)}
+        ) => seteditorHeight(d.size.height)}
       >
         <Editor
           className="rounded py-4 bg-[#1e1e1e]"
-          height={editorHeight ?? defaultHeight}
+          height={editorHeight}
           defaultLanguage="typescript"
           theme="vs-dark"
           onChange={(v) => {

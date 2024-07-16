@@ -15,7 +15,7 @@ description:
 - Invoke the function immediately
 - Takes in `an array of arguments` arguments
 
-<JsEditor editorId="call-apply-example" initCode={`function add(a, b) {
+<JsEditor initCode={`function add(a, b) {
   return a + b;
 }
 
@@ -29,7 +29,7 @@ console.log(add.apply(null, [1, 2])); // 3
 - Returns a new function that can be invoked later
 - Takes in `comma-separated` arguments
 
-<JsEditor editorId="bind-example" initCode={`function greet(greeting, punctuation) {
+<JsEditor initCode={`function greet(greeting, punctuation) {
     console.log(greeting + ' ' + this.name + punctuation);
 }
 const person = { name: 'Alice' };
@@ -38,9 +38,10 @@ greetAlice('Hello', '!'); // Output: Hello Alice!
 `}/>
 
 ## Use Cases
-1. **Context management**
 
-<JsEditor editorId="context-management-example-1" initCode={`const withoutCall = {
+### Context management
+
+<JsEditor initCode={`const withoutCall = {
   name: 'John',
   greet() {
     // this => { name: 'John', greet: fn }
@@ -52,7 +53,7 @@ withoutCall.greet(); // Hello, my name is John
 
 Now use `call` / `apply` to override context via `this`
 
-<JsEditor editorId="context-management-example-2" initCode={`const obj1 = {
+<JsEditor initCode={`const obj1 = {
   name: 'John',
   greet() {
     console.log('Hello, my name is ' + this.name);
@@ -62,11 +63,11 @@ const anotherObj1 = { name: 'Alice' };
 obj1.greet.call(anotherObj1); // Hello, my name is Alice
 `}/>
 
-2. **Function borrowing**
+### Function borrowing
 
 Both `call` and `apply` allow borrowing methods from one object and using them in the context of another.
 
-<JsEditor editorId="function-borrowing-example" initCode={`function greet2() {
+<JsEditor initCode={`function greet2() {
     // default: this => window object
   console.log('Hello, my name is ' + this.name);
 }
@@ -78,11 +79,11 @@ greet2.call(person1); // Hello, my name is John
 greet2.call(person2); // Hello, my name is Alice
 `}/>
 
-3. **Alternative syntax to call methods on objects**
+### Alternative syntax to call methods on objects
 
 `apply` can be used with object methods by passing the object as the first argument followed by the usual parameters.
 
-<JsEditor editorId="alternative-syntax-example" initCode={`const arr1 = [1, 2, 3];
+<JsEditor initCode={`const arr1 = [1, 2, 3];
 const arr2 = [4, 5, 6];
 
 Array.prototype.push.apply(arr1, arr2); // Same as arr1.push(4, 5, 6)

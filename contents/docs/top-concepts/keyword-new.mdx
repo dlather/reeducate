@@ -22,7 +22,7 @@ var alex = personFn('Alex', 30); // -> { name: 'Alex', age: 30 }
 
 The `new` keyword invokes a function in a special way by adding some implicit code.
 
-<JsEditor editorId="new-example" defaultHeight={380} initCode={`function Person(name, age) {
+<JsEditor initCode={`function Person(name, age) {
     // this = {};
     // this.__proto__ = Person.prototype;
     // Set up logic such that: if
@@ -51,7 +51,7 @@ console.log(newPerson)
 
 Try it out:
 
-<JsEditor editorId="new-try-example" defaultHeight={250} initCode={`function DemoFunc() {
+<JsEditor initCode={`function DemoFunc() {
     console.log(JSON.stringify(this)); // this => {}
     this.value = 5;
 }

@@ -7,6 +7,9 @@ export const ROUTES = [
       { title: "this", href: "/keyword-this" },
       { title: "call, apply & bind", href: "/call-apply-bind" },
       { title: "new", href: "/keyword-new" },
+      { title: "scope", href: "/scope" },
+      { title: "var, let & const", href: "/var-let-const" },
+      { title: "storage", href: "/storage" },
     ],
   },
 ];
