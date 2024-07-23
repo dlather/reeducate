@@ -1,20 +1,25 @@
 // components/JsEditor.js
 "use client";
 import React, { useRef, useState, useEffect } from "react";
-import { Console, Hook, Unhook } from "console-feed";
+import { Console } from "console-feed";
 import Editor from "@monaco-editor/react";
 import { Button } from "./ui/button";
 import { ResizableBox } from "react-resizable";
-import { guidGenerator } from "@/lib/utils";
+import { generateHashFromString } from "@/lib/utils";
 
-const JsEditor = ({ initCode = "" }: { initCode: string }) => {
-  const editorId = guidGenerator();
-  const [codeState, setcodeState] = useState(initCode);
+const JsEditor = ({
+  initCode = "",
+  editorId,
+}: {
+  initCode: string;
+  editorId: string;
+}) => {
+  const [codeState, setCodeState] = useState(initCode);
   const editorRef = useRef<null | { getValue: () => string }>(null);
-  const [editorHeight, seteditorHeight] = useState(
+  const [editorHeight, setEditorHeight] = useState(
     (initCode.split("\n").length + 1) * 20
   );
-  const monacoRef = useRef(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
   const [logs, setLogs] = useState<any[]>([]);
 
   const handleEditorDidMount = (
@@ -22,71 +27,96 @@ const JsEditor = ({ initCode = "" }: { initCode: string }) => {
     monaco: any
   ) => {
     editorRef.current = editor;
-    monacoRef.current = monaco;
   };
 
   useEffect(() => {
-    const hookedConsole = Hook(
-      window.console,
-      (log) => {
-        if (
-          log &&
-          log.data &&
-          log.data.length > 0 &&
-          log.data[log.data.length - 1] === editorId
-        ) {
-          setLogs((currLogs) => {
-            return [
-              ...currLogs,
-              {
-                ...log,
-                data: log.data?.filter(
-                  (x, i) => i !== (log.data?.length ?? 0) - 1
-                ),
-              },
-            ];
-          });
-        }
-      },
-      false
-    );
-    return () => {
-      Unhook(hookedConsole);
-      return;
+    const handleMessage = (event: MessageEvent) => {
+      if (
+        event.data &&
+        typeof event.data === "object" &&
+        event.data.type === "iframe-log" &&
+        event.data.editorId === editorId
+      ) {
+        setLogs((currLogs) => [
+          ...currLogs,
+          { method: "log", data: [event.data.message] },
+        ]);
+      }
     };
-  }, []);
+
+    window.addEventListener("message", handleMessage);
+
+    return () => {
+      window.removeEventListener("message", handleMessage);
+    };
+  }, [editorId]);
 
   const runCode = () => {
     setLogs([]);
-    if (editorRef.current) {
+    if (editorRef.current && iframeRef.current) {
       const code = editorRef.current.getValue();
-      try {
-        let consoleOverride = `let console = (function (oldCons) {
-          return {
-            ...oldCons,
-            log: function (...args) {
-              args.push("${editorId}");
-              oldCons.log.apply(oldCons, args);
-            },
-            warn: function (...args) {
-              args.push("${editorId}");
-              oldCons.warn.apply(oldCons, args);
-            },
-            error: function (...args) {
-              args.push("${editorId}");
-              oldCons.error.apply(oldCons, args);
-            },
-          };
-        })(window.console);`;
-        Function(consoleOverride + code)();
-      } catch (e: any) {
-        console.log(e.message as string);
-      }
+      iframeRef.current.contentWindow?.postMessage(
+        { type: "run-code", code, editorId },
+        "*"
+      );
     }
   };
 
+  const sandboxHtml = `
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sandbox</title>
+        <script>
+          (function() {
+            const originalConsoleLog = console.log;
+            const originalConsoleError = console.error;
+            const originalConsoleWarn = console.warn;
+            const editorId = '${editorId}';
+
+            function postLog(type, message) {
+              if (typeof message === 'object') {
+                message = JSON.stringify(message);
+              }
+              window.parent.postMessage({ type: 'iframe-log', message, editorId }, '*');
+            }
+
+            console.log = function(...args) {
+              postLog('log', args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : arg).join(' '));
+              originalConsoleLog.apply(console, args);
+            };
+
+            console.error = function(...args) {
+              postLog('error', args.join(' '));
+              originalConsoleError.apply(console, args);
+            };
+
+            console.warn = function(...args) {
+              postLog('warn', args.join(' '));
+              originalConsoleWarn.apply(console, args);
+            };
+
+            window.addEventListener('message', (event) => {
+              if (event.data && event.data.type === 'run-code' && event.data.editorId === editorId) {
+                try {
+                  new Function(event.data.code)();
+                } catch (e) {
+                  postLog('error', e.message);
+                }
+              }
+            });
+          })();
+        </script>
+      </head>
+      <body>
+      </body>
+      </html>
+    `;
+
   return (
-    <div className="flex-col justify-center items-center ">
+    <div className="flex-col justify-center items-center">
       <ResizableBox
         axis="y"
         height={editorHeight}
@@ -94,7 +124,7 @@ const JsEditor = ({ initCode = "" }: { initCode: string }) => {
         onResize={(
           _: any,
           d: { size: { height: React.SetStateAction<number> } }
-        ) => seteditorHeight(d.size.height)}
+        ) => setEditorHeight(d.size.height)}
       >
         <Editor
           className="rounded py-4 bg-[#1e1e1e]"
@@ -103,14 +133,14 @@ const JsEditor = ({ initCode = "" }: { initCode: string }) => {
           theme="vs-dark"
           onChange={(v) => {
             setLogs([]);
-            setcodeState(v ?? initCode);
+            setCodeState(v ?? initCode);
           }}
           value={codeState}
           onMount={handleEditorDidMount}
         />
       </ResizableBox>
 
-      <div className="">
+      <div>
         <Button className="mt-2" onClick={runCode}>
           Run
         </Button>
@@ -118,7 +148,7 @@ const JsEditor = ({ initCode = "" }: { initCode: string }) => {
           className="mt-2 mx-2"
           variant="outline"
           onClick={() => {
-            setcodeState(initCode);
+            setCodeState(initCode);
             setLogs([]);
           }}
         >
@@ -127,7 +157,6 @@ const JsEditor = ({ initCode = "" }: { initCode: string }) => {
       </div>
       {logs.length > 0 && (
         <div className="flex justify-center py-2 my-2 rounded items-start bg-[#242424]">
-          {/* <p className="text-gray-400">Output</p> */}
           <Console
             logs={logs}
             variant="dark"
@@ -137,8 +166,20 @@ const JsEditor = ({ initCode = "" }: { initCode: string }) => {
           />
         </div>
       )}
+      <iframe
+        ref={iframeRef}
+        title={`sandbox-${editorId}`}
+        style={{ display: "none" }}
+        sandbox="allow-scripts"
+        srcDoc={sandboxHtml}
+      ></iframe>
     </div>
   );
 };
 
-export default JsEditor;
+const JsEditorWrapper = ({ initCode = "" }: { initCode: string }) => {
+  const hashRef = useRef<string>(generateHashFromString(initCode).toString());
+  return <JsEditor initCode={initCode} editorId={hashRef.current} />;
+};
+
+export default JsEditorWrapper;
