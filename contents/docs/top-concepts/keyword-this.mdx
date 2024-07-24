@@ -9,27 +9,28 @@ It follows these rules, in order of precedence.
 ### Rule 1: New
 If the `new` keyword is used when calling the function, `this` inside the function is a **brand new object**.
 
-<JsEditor initCode={`function fun1() {
+<JsEditor initCode={`function fun() {
     console.log(JSON.stringify(this)); // {}
     this.value = 10;
     console.log(JSON.stringify(this)); // { value: 10 }
 }
-new fun1();`}/>
+new fun();
+`}/>
 
 ### Rule 2: Bind
 If `apply`, `call`, or `bind` are used to call a function, `this` inside the function is the **object that is passed in as the argument**.
 
 
-<JsEditor initCode={`function fun2() {
+<JsEditor initCode={`function fun() {
     console.log(this);
 }
 var obj2 = {
     value: 5
 };
-var boundFn = fun2.bind(obj2);
+var boundFn = fun.bind(obj2);
 boundFn();     // -> { value: 5 }
-fun2.call(obj2);  // -> { value: 5 }
-fun2.apply(obj2); // -> { value: 5 }
+fun.call(obj2);  // -> { value: 5 }
+fun.apply(obj2); // -> { value: 5 }
 `}/>
 
 ### Rule 3: Dot notation 
@@ -41,7 +42,8 @@ If `dot notation` is used to invoke the function, `this` is the **object to the 
         console.log(this);
     }
 };
-obj3.printThis(); // -> { value: 5, printThis: ƒ }`}/>
+obj3.printThis(); // -> { value: 5, printThis: ƒ }
+`}/>
 
 ### Rule 4: Global
 If invoked `without` any of the conditions present above, `this` is the **global object**. In a browser, its **window**.
@@ -50,7 +52,8 @@ If invoked `without` any of the conditions present above, `this` is the **global
     console.log(this);
 }
 // If called in browser:
-fun4(); // -> Window {stop: ƒ, open: ƒ, alert: ƒ, ...}`}/>
+fun4(); // -> Window {stop: ƒ, open: ƒ, alert: ƒ, ...}
+`}/>
 
 
 ### Rule 5: Multiple
