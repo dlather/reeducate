@@ -51,13 +51,13 @@ console.log(newPerson)
 
 Try it out:
 
-<JsEditor initCode={`function DemoFunc() {
+<JsEditor initCode={`function fun() {
     console.log(JSON.stringify(this)); // this => {}
     this.value = 5;
 }
 
-var demoObj = new DemoFunc(); // -> {}
-console.log(demoObj.__proto__ === DemoFunc.prototype); // -> true
-console.log(demoObj.constructor === DemoFunc); // -> true
-console.log(demoObj); // -> { value: 5 }
+var obj = new fun(); // -> {}
+console.log(obj.__proto__ === fun.prototype); // -> true
+console.log(obj.constructor === fun); // -> true
+console.log(obj); // -> { value: 5 }
 `}/>

@@ -1,0 +1,141 @@
+---
+title: "Value vs Reference"
+description: 
+---
+
+### Introduction
+
+#### Data Types
+
+1. **Primitives**: `Boolean`, `null`, `undefined`, `String`, `Number`
+2. **Objects**: `Array`, `Functions`, `Object`
+
+
+#### Data storage in memory
+
+Memory is divided into multiple memory slots, each having its own `address` and may contain a `value` in it.
+
+```jsx
+Continous set of memory slots
+
++---------+---------+
+| Address |  Value  |
++---------+---------+
+|   ....  |         |
+|   78..  |         |
+|   7878  |         |  -> Empty Slot 
+|   7879  |    10   |  -> Slot with value 10
+|   7880  |         |  -> Empty Slot 
+|   78..  |         | 
+|   ....  |         | 
++---------+---------+
+```
+
+### Primitives
+
+If a primitive type is assigned to a variable, we can think of that variable as `containing` the primitive `value`.
+
+```jsx
+const x = 5; // x contains 5
+const y = 'abc'; // y contains 'abc'
+```
+
+When we assign these variables to other variables using =, we copy the `value` to the new variable. They are copied by value.
+
+<JsEditor initCode={`
+const x = 10;
+const y = 'abc';
+
+const a = x;
+const b = y;
+
+console.log(x, y, a, b);
+// -> 10, 'abc', 10, 'abc'
+`}/>
+
+```jsx
+----------+---------+---------+
+Variable  | Address |  Value  |
+----------+---------+---------+
+          |   ....  |         |
+x         |   7877  |    10   | -> Variable x has address 7877 and value 10
+y         |   7878  |  'abc'  | 
+          |   ....  |         | 
+a         |   8988  |    10   |
+b         |   9889  |  'abc'  | 
+          |   ....  |         | 
++---------+---------+---------+
+```
+
+Changing one does not change the other. Think of the variables as having no relationship to each other.
+
+<JsEditor initCode={`
+const x = 10;
+const y = 'abc';
+
+let a = x;
+let b = y;
+
+a = 5;
+b = 'def';
+
+console.log(x, y, a, b); // -> 10, 'abc', 5, 'def'
+`}/>
+
+### Objects
+
+Variables that are assigned a non-primitive value are given a reference to the `object’s location` in memory. The variables don’t actually contain the value
+
+```jsx
+const arr = [1,2,3]
+
+----------+---------+---------+
+Variable  | Address |  Value  |
+----------+---------+---------+
+          |   ....  |         |
+arr       |   7877  |  8987   | -> Variable arr stores location of array
+          |   ....  |         | 
+          |   8987  |    1    | 
+          |   8988  |    2    |
+          |   9889  |    3    |
+          |   ....  |         | 
++---------+---------+---------+
+
+arr.push(4) // Variable arr still stores the same value
+```
+
+When a reference type value, an object, is copied to another variable using =, the address of that value is what’s actually copied over as if it were a primitive.`Objects are copied by copying the reference instead of by copying the value.`
+
+<JsEditor initCode={`
+const reference = [1];
+const refCopy = reference;
+
+reference.push(2);
+
+console.log(reference, refCopy);
+// -> [1, 2], [1, 2]
+`}/>
+
+### Bonus Tips
+- **Reassigning a reference**
+
+```jsx
+let obj = { first: 'reference' };
+obj = { second: 'ref2' }
+```
+When there are no references to an object remaining, the JavaScript engine can perform **garbage collection**. This just means that the programmer has lost all references to the object and can’t use the object anymore, so the engine can safely delete it from memory.
+
+- **Equality Opeartors**
+
+When using `==` or `===` on reference-type variables, if the variables contain a **reference to the same item**, the comparison will result in `true` else even if they **contain identical items**, the comparison will result in `false`.
+
+<JsEditor initCode={`
+const arrRef = ['Hi!'];
+const arrRef2 = arrRef;
+console.log(arrRef === arrRef2); // -> true
+
+const arr1 = ['Hi!'];
+const arr2 = ['Hi!'];
+
+console.log(arr1 === arr2); // -> false
+`}/>

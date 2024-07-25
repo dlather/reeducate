@@ -53,21 +53,21 @@ withoutCall.greet(); // Hello, my name is John
 
 Now use `call` / `apply` to override context via `this`
 
-<JsEditor initCode={`const obj1 = {
+<JsEditor initCode={`const obj = {
   name: 'John',
   greet() {
     console.log('Hello, my name is ' + this.name);
   },
 };
-const anotherObj1 = { name: 'Alice' };
-obj1.greet.call(anotherObj1); // Hello, my name is Alice
+const anotherObj = { name: 'Alice' };
+obj.greet.call(anotherObj); // Hello, my name is Alice
 `}/>
 
 ### Function borrowing
 
 Both `call` and `apply` allow borrowing methods from one object and using them in the context of another.
 
-<JsEditor initCode={`function greet2() {
+<JsEditor initCode={`function greet() {
     // default: this => window object
   console.log('Hello, my name is ' + this.name);
 }
@@ -75,8 +75,8 @@ Both `call` and `apply` allow borrowing methods from one object and using them i
 const person1 = { name: 'John' };
 const person2 = { name: 'Alice' };
 
-greet2.call(person1); // Hello, my name is John
-greet2.call(person2); // Hello, my name is Alice
+greet.call(person1); // Hello, my name is John
+greet.call(person2); // Hello, my name is Alice
 `}/>
 
 ### Alternative syntax to call methods on objects

@@ -10,6 +10,7 @@ export const ROUTES = [
       { title: "scope", href: "/scope" },
       { title: "var, let & const", href: "/var-let-const" },
       { title: "storage", href: "/storage" },
+      { title: "value vs reference", href: "/value-reference" },
     ],
   },
 ];

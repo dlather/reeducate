@@ -13,6 +13,7 @@ import { visit } from "unist-util-visit";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Pre from "@/components/pre";
 import JsEditor from "@/components/editor";
+import Quiz from "@/components/quiz";
 
 type MdxFrontmatter = {
   title: string;
@@ -25,6 +26,7 @@ const components = {
   TabsContent,
   TabsList,
   TabsTrigger,
+  Quiz,
   JsEditor,
   pre: Pre,
 };

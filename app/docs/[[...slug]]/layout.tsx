@@ -13,12 +13,12 @@ export default function DocsLayout({
 }>) {
   return (
     <body
-      className={`${GeistSans.variable} ${GeistMono.variable} font-regular`}
+      className={`${GeistSans.variable} ${GeistMono.variable} font-regular data-theme="light"`}
       suppressHydrationWarning
     >
       <ThemeProvider
         attribute="class"
-        defaultTheme="system"
+        defaultTheme="light"
         enableSystem
         disableTransitionOnChange
       >
@@ -29,7 +29,6 @@ export default function DocsLayout({
             <div className="flex-[4]">{children}</div>
           </div>
         </main>
-        {/* <Footer /> */}
       </ThemeProvider>
     </body>
   );
